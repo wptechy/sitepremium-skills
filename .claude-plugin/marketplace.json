@@ -1,0 +1,16 @@
+{
+  "name": "sitepremium",
+  "owner": { "name": "Sitepremium" },
+  "metadata": {
+    "description": "Agent skills for building and operating Sitepremium sites through the Sitepremium MCP server."
+  },
+  "plugins": [
+    {
+      "name": "sitepremium",
+      "source": "./plugins/sitepremium",
+      "description": "Seven skills (sp-build, sp-edit, sp-propose, sp-seo, sp-analyze, sp-research, sp-plan) for an agent connected to the Sitepremium MCP server.",
+      "version": "0.1.0",
+      "category": "development"
+    }
+  ]
+}

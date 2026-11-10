@@ -1,0 +1,7 @@
+{
+  "name": "sitepremium",
+  "version": "0.1.0",
+  "description": "Skills for building and operating Sitepremium sites with your own agent, through the Sitepremium MCP server: sp-build, sp-edit, sp-propose, sp-seo, sp-analyze, sp-research, sp-plan.",
+  "author": { "name": "Sitepremium" },
+  "keywords": ["sitepremium", "mcp", "website", "skills"]
+}
