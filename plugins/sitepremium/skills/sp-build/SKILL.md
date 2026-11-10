@@ -29,7 +29,7 @@ Parameters (ask the person if the request does not make them clear):
 1. `list_sites` to find the site, then `get_brief`. Note the mode (clone, redesign or new), the languages, the modules and what the person already approved.
 2. `start_work` with a label such as "Build the home page".
 3. Clone or redesign: `get_source_scan` without `path` for the overview, then with `path` for each page you are about to build (its sections, measurements and screenshots; use `images: "sections"` to see each section cropped). Look at the pictures: the numbers do not replace them.
-4. `list_files` and `read_file` for the templates and sections you will touch.
+4. `list_files` and `read_file` for the templates and sections you will touch. `list_pages`, `list_menus`, `list_collections` and `list_entries` show what content the draft already has (ids, handles, languages): check them before creating anything, so you update instead of duplicating.
 
 ### 2. Plan
 
@@ -38,6 +38,8 @@ State a short plan before writing: which templates and sections you will build o
 ### 3. Execution
 
 Upload images and icons with `upload_media` first, so you have their `mediaId`. Write the files with `write_files` in batches. The server validates the whole theme before writing; if it refuses, fix every issue listed and resend the whole batch.
+
+The content of the site goes in with the content tools, also into the draft only. For a clone or redesign, in this order: (1) `create_page` for each source page (`handle` from the source path, `translations` with the default language, `body` as simple HTML; the `home` page first); (2) `create_entry` for the items of each collection the source had (services, team, posts), validated against the schema from `list_collections`; (3) `create_menu` for the header and footer menus, linking the pages and entries by the ids the previous calls returned, with the default-language label on every item (`update_menu` replaces a menu whole). Collections themselves (the schema) are created by people in the panel: if the source needs one that `list_collections` does not show, list it and stop on that part. Re-running a build: `update_page` / `update_entry` for what exists, never a second page with another handle. `delete_page`, `delete_entry` and `delete_menu` only for content you created in this task or the person asked to remove.
 
 - `HOME`: build only `templates/index.json` and the sections and assets it needs. Do not touch other templates.
 - `ALL`, after the home page is approved: do not modify `templates/index.json` any more. Build `page.json` (with `main-page` for the page body), `page.about.json` / `page.contact.json` where the source had such pages, `collection.json` / `entry.json` (and per-collection variants) and `404.json`, in the same style, reusing the sections of the home page.
@@ -49,7 +51,7 @@ On a clone follow the fidelity rules below. On a redesign (a new, modern, clean 
 ### 4. Verification (the fidelity loop)
 
 1. `validate_theme`: no issues; fix performance budget violations before you report.
-2. `render_preview` with `screenshot: true` for each page you built: look at the desktop and mobile pictures, read `warnings` (sections that failed to render) and fix them.
+2. `list_pages`, `list_menus` and `list_entries` match what the source had (every page, every menu item, every entry). `render_preview` with `screenshot: true` for each page you built: look at the desktop and mobile pictures, read `warnings` (sections that failed to render) and fix them.
 3. Clone and redesign with a source scan: loop at most **4 rounds**, target score **90**:
    1. `check_fidelity` (default pages, or `paths` for the pages you built; `images: "both"` when you need to see the draft). If the answer is `QUEUED` or `RUNNING`, call again with the same `checkId`.
    2. If `score` is at least 90 and none of the pages or sections you built is below the threshold: stop the loop.
@@ -135,7 +137,7 @@ format first: the resources `sitepremium://docs/theme-format` (file structure, t
 
 - The brief lacks the mode, the source or the languages, or a clone has no source scan: stop and say what is missing.
 - `scope: HOME` is done: stop. The person approves the home page (in the panel) before you build the rest. Never continue to `ALL` on your own.
-- You would need something that is not in the theme draft (content operations such as pages, menus or collection entries are not exposed as tools yet; a module the site has not bought; media beyond the quota): list it and stop on that part.
+- You would need something the tools do not cover (a collection schema, which people create in the panel; a module the site has not bought; media beyond the quota): list it and stop on that part.
 - The fidelity loop ended at 4 rounds below 90, or a deviation cannot be fixed with the allowed means: report it.
 - The lock is held by someone else (`site_locked`).
 - The person did not ask to publish: never `release` or `rollback`.

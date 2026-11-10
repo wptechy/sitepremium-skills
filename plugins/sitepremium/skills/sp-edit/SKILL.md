@@ -21,7 +21,7 @@ The theme already exists in the draft (built by `sp-build` or by hand) and the p
 ### 1. Context
 
 1. `list_sites`, `get_brief`, then `start_work` with a label that names the change.
-2. `list_files` and `read_file` for everything the change touches. Look at `render_preview` with `screenshot: true` of the affected page before you change anything.
+2. `list_files` and `read_file` for everything the change touches. For a change in the text of a page, a collection entry or a menu: `list_pages` / `get_page`, `list_entries`, `list_menus` give the current content and the ids. Look at `render_preview` with `screenshot: true` of the affected page before you change anything.
 
 ### 2. Plan
 
@@ -101,7 +101,8 @@ format first: the resources `sitepremium://docs/theme-format` (file structure, t
 ## Stops and asks the human
 
 - The request is ambiguous, or it conflicts with the brief (for example a new language the site does not have, a module the site has not bought).
-- The change cannot be expressed in the theme (content operations such as pages, menus or collection entries are not exposed as tools yet): say so and stop on that part.
+- The change needs a new collection or a changed collection schema (people do that in the panel; the content tools only list collections): say so and stop on that part.
+- A content change (`update_page`, `update_entry`, `update_menu`) replaces whole translations or the whole menu: read the current value first and send it back changed, so nothing the person wrote is lost. Content tools write the draft only, like the theme tools.
 - The change would delete content or a section the person did not mention.
 - The lock is held by someone else (`site_locked`).
 - The person did not ask to publish: never `release` or `rollback`.

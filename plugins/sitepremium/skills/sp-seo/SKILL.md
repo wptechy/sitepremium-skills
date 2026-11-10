@@ -12,7 +12,7 @@ The person wants better titles and meta descriptions for the pages and entries o
 ## What it reads
 
 - `get_brief`: the business, its audience, the languages (one suggestion per page per language), the modules.
-- The pages and entries to cover, with their ids and current titles and descriptions. A suggestion points to its target with a `ref`, `page:<id>:<locale>` or `entry:<id>:<locale>`, and those ids come from the site content (the brief and the content tools of the server, where available).
+- The pages and entries to cover, with their ids and current titles and descriptions. A suggestion points to its target with a `ref`, `page:<id>:<locale>` or `entry:<id>:<locale>`, and those ids come from `list_pages` (page `id` and the `locale` of each translation) and `list_entries` (entry `id`; get the collection ids from `list_collections`). `get_page` gives the full text and the current `seo` of a page.
 - `render_preview` for the visible text of a page (the `title` and the HTML of the rendered page).
 - `get_source_scan` on a clone: the old titles and descriptions are a starting point.
 
@@ -20,7 +20,7 @@ The person wants better titles and meta descriptions for the pages and entries o
 
 ### 1. Context
 
-`list_sites`, `get_brief`. Note the languages and the business. `start_work` (label: "SEO titles and descriptions"). Collect the list of pages and entries with their `ref` values. If you cannot get the ids, stop (see the stops).
+`list_sites`, `get_brief`. Note the languages and the business. `start_work` (label: "SEO titles and descriptions"). Collect the list of pages and entries with their `ref` values with `list_pages` and `list_entries` (page through entries with `offset` when `total` is larger than the page). If you cannot get the ids, stop (see the stops).
 
 ### 2. Plan
 

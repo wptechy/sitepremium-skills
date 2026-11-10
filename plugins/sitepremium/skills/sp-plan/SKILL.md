@@ -1,20 +1,20 @@
 ---
 name: sp-plan
-description: Propose the page structure of a Sitepremium site (which pages, with titles, slugs and purpose) as a plan report for Setup, Structura, to be approved by a person. Use when the person asks for a site structure, sitemap or page plan, before building a new site or a redesign.
+description: Propose the page structure of a Sitepremium site (which pages, with titles, slugs and purpose) with propose_siteplan, as a plan for Setup, Structura, to be approved by a person. Use when the person asks for a site structure, sitemap or page plan, before building a new site or a redesign.
 ---
 
 # sp-plan: propose the structure
 
 ## When to use
 
-The person wants the pages of the site decided: for a new site from the brief, for a redesign that reorganizes the old site, or to check a clone's page list. The output is one plan report (Setup, Structura). A person approves the structure in the panel; you build only after that (`sp-build`). Never start building from a plan nobody approved.
+The person wants the pages of the site decided: for a new site from the brief, for a redesign that reorganizes the old site, or to check a clone's page list. The output is one plan, handed in with `propose_siteplan` (Setup, Structura). A person approves the structure in the panel; you build only after that (`sp-build`). Never start building from a plan nobody approved.
 
 ## What it reads
 
 - `get_brief`: the starting point, the business, the modules bought, languages, the goal of the site.
 - `get_source_scan` (clone or redesign): the overview and its `pages` list (every scanned page, source path, title, number of sections), `menus` and `collections`.
 - Existing analysis or research reports are shown in the brief when they were done; use them.
-- The current draft (`list_files`) if there is one.
+- The current draft (`list_files`, and `list_pages`, `list_menus`, `list_collections` for the content it already has) if there is one.
 
 ## Steps
 
@@ -28,7 +28,7 @@ Decide the principles: a clone keeps every scanned page (same paths in spirit; n
 
 ### 3. Execution
 
-Build the page list: home first, then the pages by importance. Pages that come from collections (services, team, blog) are listed once as the listing page; their entries are content, not pages in the plan. Then submit with `submit_report`, `kind: "plan"`:
+Build the page list: home first, then the pages by importance. Pages that come from collections (services, team, blog) are listed once as the listing page; their entries are content, not pages in the plan. Then submit with `propose_siteplan` (the `plan` argument; it is the same as `submit_report` with `kind: "plan"`):
 
 ```json
 {
