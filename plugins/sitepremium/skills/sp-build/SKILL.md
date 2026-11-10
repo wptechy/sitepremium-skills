@@ -17,7 +17,7 @@ Parameters (ask the person if the request does not make them clear):
 
 ## What it reads
 
-- `get_brief` (and the resource `sitepremium://sites/{siteId}/brief`): the starting point (clone, faithful or extended redesign, new site), the source URL, languages, modules, business data, approvals. Read it again at the start of every task.
+- `get_brief` (and the resource `sitepremium://sites/{siteId}/brief`): the starting point (clone, faithful or extended redesign, new site), the source URL, languages, modules, business data, approvals, and the section "Accepted reports": the analysis, brand research and site structure (plan) a person accepted in Setup. Read it again at the start of every task.
 - `get_source_scan` (clone and redesign only): the measured palette, fonts, menus, collections and pages of the source, and per page the layout of each section with desktop and mobile screenshots. For a new site there is no scan: build from the brand data in the brief, with short, general, true texts (no invented numbers, awards or testimonials).
 - The current theme: `list_files`, `read_file` (every site starts from the Foundation theme "Fundația").
 - The theme format resources named in the theme rules below.
@@ -27,9 +27,14 @@ Parameters (ask the person if the request does not make them clear):
 ### 1. Context
 
 1. `list_sites` to find the site, then `get_brief`. Note the mode (clone, redesign or new), the languages, the modules and what the person already approved.
-2. `start_work` with a label such as "Build the home page".
-3. Clone or redesign: `get_source_scan` without `path` for the overview, then with `path` for each page you are about to build (its sections, measurements and screenshots; use `images: "sections"` to see each section cropped). Look at the pictures: the numbers do not replace them.
-4. `list_files` and `read_file` for the templates and sections you will touch. `list_pages`, `list_menus`, `list_collections` and `list_entries` show what content the draft already has (ids, handles, languages): check them before creating anything, so you update instead of duplicating.
+2. **Plan gate.** Look at the starting point and at "Accepted reports" in the brief, before you write anything:
+   - New site (`New site: there is no source site`) or extended redesign (`Redesign, extended (variant 2)`): an accepted site structure is required, for every scope (`HOME`, `ALL`, one page, one template). If the brief has no "Site structure (plan)" under "Accepted reports" (it says `No site structure (plan) is accepted yet`), stop: tell the person to run `sp-plan` and to accept the plan in Setup > Structură, then come back. A plan listed under "Waiting for review" does not count.
+   - Clone or faithful redesign (`Redesign, faithful (variant 1)`): no plan is needed, the source site's pages are the structure. If an accepted plan exists anyway, follow it.
+   - Redesign whose intent is not chosen, or no starting point: stop and ask the person (see the stops below).
+   - With an accepted plan, build exactly its pages (titles, slugs, purpose); a page the plan does not have is not built.
+3. `start_work` with a label such as "Build the home page".
+4. Clone or redesign: `get_source_scan` without `path` for the overview, then with `path` for each page you are about to build (its sections, measurements and screenshots; use `images: "sections"` to see each section cropped). Look at the pictures: the numbers do not replace them.
+5. `list_files` and `read_file` for the templates and sections you will touch. `list_pages`, `list_menus`, `list_collections` and `list_entries` show what content the draft already has (ids, handles, languages): check them before creating anything, so you update instead of duplicating.
 
 ### 2. Plan
 
@@ -136,6 +141,7 @@ format first: the resources `sitepremium://docs/theme-format` (file structure, t
 ## Stops and asks the human
 
 - The brief lacks the mode, the source or the languages, or a clone has no source scan: stop and say what is missing.
+- A new site or an extended redesign without an accepted site structure in the brief: stop before writing. Tell the person to run `sp-plan` and accept the plan in Setup > Structură. Clones and faithful redesigns do not need one.
 - `scope: HOME` is done: stop. The person approves the home page (in the panel) before you build the rest. Never continue to `ALL` on your own.
 - You would need something the tools do not cover (a collection schema, which people create in the panel; a module the site has not bought; media beyond the quota): list it and stop on that part.
 - The fidelity loop ended at 4 rounds below 90, or a deviation cannot be fixed with the allowed means: report it.

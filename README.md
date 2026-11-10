@@ -39,7 +39,7 @@ This directory is not a pnpm workspace package. `apps/coming-soon` is untouched.
 1. Connect the agent to the MCP server (Profile creates your token), for example for Claude Code:
    `claude mcp add --transport http sitepremium <api-url>/mcp --header "Authorization: Bearer <token>"`.
 2. Skills:
-   - **Claude Code:** `/plugin marketplace add <owner>/<public-repo>` then `/plugin install sitepremium@sitepremium`
+   - **Claude Code:** `/plugin marketplace add wptechy/sitepremium-skills` then `/plugin install sitepremium@sitepremium`
      (from a local checkout: `/plugin marketplace add ./agent-skills`).
    - **Codex:** copy (or symlink) the folders in `plugins/sitepremium/skills/` into `~/.agents/skills/` (user) or
      `.agents/skills/` (repository). Codex reads the same `SKILL.md` format (frontmatter `name` + `description`). Start a new session
@@ -47,15 +47,15 @@ This directory is not a pnpm workspace package. `apps/coming-soon` is untouched.
    - **Cursor, Claude Desktop, Gemini CLI and other agents without skills:** use the MCP prompts of the server (`sp-build`, ...):
      each prompt returns the text of its skill.
 
-## Public mirror (needs Owner approval)
+## Public mirror (`wptechy/sitepremium-skills`)
 
 The source of truth is this directory in the monorepo. For distribution it is mirrored to a public GitHub repository whose root
-is the content of `agent-skills/` (so `.claude-plugin/marketplace.json` sits at the root). The first push to the public repository
-happens only with the Owner's approval; nothing is published automatically. Mirror step, once approved:
+is the content of `agent-skills/` (so `.claude-plugin/marketplace.json` sits at the root): `wptechy/sitepremium-skills`, approved by
+the Owner on 2026-11-10. Nothing is published automatically; the mirror is pushed by hand from `main`:
 
 ```bash
 git subtree split --prefix=agent-skills -b skills-mirror
-git push <public-repo-url> skills-mirror:main
+git push https://github.com/wptechy/sitepremium-skills.git skills-mirror:main
 ```
 
 Every change to a skill is a normal pull request in the monorepo; the mirror is updated from `main` afterwards.
