@@ -62,6 +62,7 @@ Tell the person the structure in a few lines, what you merged or added and why, 
 - Every page of a clone is accounted for; nothing of the old site is lost.
 - Slugs are valid and unique; the home page is first.
 - The server accepted the report.
+- The person may edit the plan in Setup > Structură before accepting it. Build from the accepted version in the brief (it says "Edited and accepted by" when the person changed it), never from your own submitted copy.
 
 ## Stops and asks the human
 
